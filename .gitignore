@@ -52,3 +52,6 @@ docker-compose.override.yml
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Virtualenv
+.venv
