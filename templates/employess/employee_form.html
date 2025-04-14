@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}Edit Employee{% else %}Add Employee{% endif %} - EMS
+{% endblock %}
+
+{% block content %}
+<h1>{% if form.instance.pk %}Edit Employee{% else %}Add Employee{% endif %}</h1>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="{{ form.first_name.id_for_label }}" class="form-label">First Name</label>
+                        {{ form.first_name.errors }}
+                        <input type="text" class="form-control" id="{{ form.first_name.id_for_label }}" name="{{ form.first_name.html_name }}" value="{{ form.first_name.value|default_if_none:'' }}">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="{{ form.last_name.id_for_label }}" class="form-label">Last Name</label>
+                        {{ form.last_name.errors }}
+                        <input type="text" class="form-control" id="{{ form.last_name.id_for_label }}" name="{{ form.last_name.html_name }}" value="{{ form.last_name.value|default_if_none:'' }}">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                {{ form.email.errors }}
+                <input type="email" class="form-control" id="{{ form.email.id_for_label }}" name="{{ form.email.html_name }}" value="{{ form.email.value|default_if_none:'' }}">
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="{{ form.department.id_for_label }}" class="form-label">Department</label>
+                        {{ form.department.errors }}
+                        {{ form.department }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="{{ form.position.id_for_label }}" class="form-label">Position</label>
+                        {{ form.position.errors }}
+                        <input type="text" class="form-control" id="{{ form.position.id_for_label }}" name="{{ form.position.html_name }}" value="{{ form.position.value|default_if_none:'' }}">
+                    </div>
+                </div>
+            </div>
+            
+            {% if not form.instance.pk %}
+            <div class="mb-3">
+                <label for="{{ form.hire_date.id_for_label }}" class="form-label">Hire Date</label>
+                {{ form.hire_date.errors }}
+                <input type="date" class="form-control" id="{{ form.hire_date.id_for_label }}" name="{{ form.hire_date.html_name }}" value="{{ form.hire_date.value|default_if_none:'' }}">
+            </div>
+            {% endif %}
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="{{ form.status.id_for_label }}" class="form-label">Status</label>
+                        {{ form.status.errors }}
+                        {{ form.status }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="{{ form.salary.id_for_label }}" class="form-label">Salary</label>
+                        {{ form.salary.errors }}
+                        <input type="number" step="0.01" class="form-control" id="{{ form.salary.id_for_label }}" name="{{ form.salary.html_name }}" value="{{ form.salary.value|default_if_none:'' }}">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'employee-list' %}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ employee.first_name }} {{ employee.last_name }} - EMS{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>{{ employee.first_name }} {{ employee.last_name }}</h1>
+    <div>
+        <a href="{% url 'employee-update' employee.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'employee-delete' employee.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'generate-report' employee.id %}" class="btn btn-info">Generate Report</a>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        Employee Information
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Email:</strong> {{ employee.email }}</p>
+                <p><strong>Position:</strong> {{ employee.position }}</p>
+                <p><strong>Department:</strong> {{ employee.department.name|default:"Not Assigned" }}</p>
+                <p><strong>Hire Date:</strong> {{ employee.hire_date }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Status:</strong>
+                    {% if employee.status == 'active' %}
+                        <span class="badge bg-success">Active</span>
+                    {% elif employee.status == 'on_leave' %}
+                        <span class="badge bg-warning">On Leave</span>
+                    {% else %}
+                        <span class="badge bg-danger">Terminated</span>
+                    {% endif %}
+                </p>
+                <p><strong>Salary:</strong> ${{ employee.salary }}</p>
+                <p><strong>Created At:</strong> {{ employee.created_at }}</p>
+                <p><strong>Last Updated:</strong> {{ employee.updated_at }}</p>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        Report Information
+    </div>
+    <div class="card-body">
+        {% if employee.last_report_generated %}
+            <p><strong>Last Report Generated:</strong> {{ employee.last_report_generated }}</p>
+            <p>To generate a new report, click the "Generate Report" button above.</p>
+        {% else %}
+            <p>No reports have been generated for this employee yet.</p>
+            <p>Click the "Generate Report" button above to create a new report.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - EMS{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="row mt-4">
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Total Employees</h5>
+                <h2 class="card-text">{{ total_employees }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Active Employees</h5>
+                <h2 class="card-text">{{ active_employees }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Departments</h5>
+                <h2 class="card-text">{{ departments.count }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                Department Summary
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Department</th>
+                            <th>Employees</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for department in departments %}
+                        <tr>
+                            <td>{{ department.name }}</td>
+                            <td>{{ department.employees.count }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2">No departments found</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                Background Tasks
+            </div>
+            <div class="card-body">
+                <p>The following tasks are running in the background:</p>
+                <ul>
+                    <li>Daily department report (runs at midnight)</li>
+                    <li>Weekly salary report (runs every Monday at 9:00 AM)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
