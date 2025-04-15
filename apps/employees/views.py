@@ -97,4 +97,4 @@ def dashboard(request):
         'departments': departments,
     }
 
-    return render(request, 'employees/dashboard.html', context)
+    return render(request, 'templates/employees/dashboard.html')
